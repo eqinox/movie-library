@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class MoviesPage extends Component {
+class MoviesCollection extends Component {
     render () {
         return (
             <div>Movies page</div>
@@ -8,4 +8,4 @@ class MoviesPage extends Component {
     }
 }
 
-export default MoviesPage
+export default MoviesCollection

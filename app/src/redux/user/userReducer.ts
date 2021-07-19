@@ -1,5 +1,3 @@
-import { ADD_USER } from "./userActions";
-
 import { User } from '../../models/user';
 import { IUserState } from "./iUserState";
 
@@ -18,7 +16,7 @@ function addUser(state: IUserState, action: Action): IUserState {
 
 const userReducer = (state: IUserState = initialUserState, action: Action): IUserState => {
     switch (action.type) {
-        case ADD_USER:
+        case 'users/register':
             return addUser(state, action);
         default:
             return initialUserState;

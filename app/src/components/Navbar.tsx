@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {Button, Alert} from 'react-bootstrap';
+// import {Button, Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navbar = () => (

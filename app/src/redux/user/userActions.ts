@@ -1,12 +1,14 @@
-// Constants
+import { UserService } from './../../services/userService';
+import { User } from '../../models/user';
 
-//export const REGISTER_USER = 'users/register';
-
-export const registerUser = (amount: number) => {
+export const registerUser = (user: User) => {
+    console.log(user);
     return (dispatch: any) => {
         dispatch({
             type: 'users/register',
-            payload: amount
+            payload: {
+                email: user.email
+            }
         })
     }
 }

@@ -4,7 +4,7 @@ import { IAppState } from './IAppState';
 
 
 export const reducers = combineReducers<IAppState>({
-    users: userReducer
+    user: userReducer
 });
 
 // export default reducers;

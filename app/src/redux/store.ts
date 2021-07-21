@@ -7,4 +7,3 @@ import thunk from 'redux-thunk';
 //   ? window.devToolsExtension() : (f) => f;
 
 export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
-

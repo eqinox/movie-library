@@ -1,8 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./AuthForm.module.css";
+import { useHistory } from "react-router-dom";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { sendUserData } from "../store/user/user-actions";
 
 const AuthForm = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [loginMode, setLoginMode] = useState(true);
+  const [initial, setInitial] = useState(true);
+  const user = useSelector((state) => state.user.email);
   let email = useRef();
   let password = useRef();
 
@@ -13,15 +22,26 @@ const AuthForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (loginMode) {
-      // Dispatch login
-    } else {
-      // Dispatch Register
-    }
+    const newUser = {
+      email: email.current.value,
+      password: password.current.value,
+    };
 
-    email = "";
-    password = "";
+    if (loginMode) {
+      dispatch(sendUserData(newUser, "login"));
+    } else {
+      dispatch(sendUserData(newUser, "register"));
+    }
   };
+
+  // Redirect after changes in user for example successfuly logged in
+  useEffect(() => {
+    if (initial) {
+      setInitial(false);
+      return;
+    }
+    history.replace("/");
+  }, [user]);
 
   return (
     <section className={classes.auth}>

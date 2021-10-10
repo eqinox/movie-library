@@ -1,4 +1,5 @@
 import { userActions } from "./user-slice";
+import { notificationActions } from "../notification/notification-slice";
 
 export const sendUserData = (newUser, action) => {
   return async (dispatch) => {
@@ -24,14 +25,30 @@ export const sendUserData = (newUser, action) => {
 
     try {
       const userData = await fetchData();
-      console.log(userData);
+
       if (userData.message) {
-        console.log(userData.message);
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "error",
+            message: userData.message,
+          })
+        );
       } else {
         dispatch(userActions.login(userData.user));
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "success",
+            message: userData.user.message,
+          })
+        );
       }
     } catch (error) {
-      console.log(error + "*******************");
+      dispatch(
+        notificationActions.showDefaultNotification({
+          status: "error",
+          message: error.toString(),
+        })
+      );
     }
   };
 };

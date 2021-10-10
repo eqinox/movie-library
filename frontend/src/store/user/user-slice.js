@@ -34,7 +34,7 @@ const userSlice = createSlice({
       localStorage.removeItem("isLoggedIn");
       localStorage.removeItem("email");
       localStorage.removeItem("id");
-    }
+    },
   },
 });
 

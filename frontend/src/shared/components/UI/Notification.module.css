@@ -1,0 +1,30 @@
+.notification {
+  width: 50%;
+  margin: auto;
+  height: 3rem;
+  border-radius: 10px;
+  background-color: #1a8ed1;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 10%;
+  align-items: center;
+  color: white;
+}
+
+.notification:hover {
+  cursor: pointer;
+}
+
+.notification h2,
+.notification p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.error {
+  background-color: #690000;
+}
+
+.success {
+  background-color: #1ad1b9;
+}

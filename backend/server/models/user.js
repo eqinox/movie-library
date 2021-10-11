@@ -9,6 +9,7 @@ let userSchema = new mongoose.Schema({
   email: { type: String, required: ERROR_VALIDATION_MESSAGE, unique: true },
   roles: [{ type: String }],
   salt: { type: String, required: ERROR_VALIDATION_MESSAGE },
+  movies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
 userSchema.method({

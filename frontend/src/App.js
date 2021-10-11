@@ -9,6 +9,7 @@ import ProfilePage from "./user/ProfilePage";
 import AuthForm from "./user/AuthForm";
 import Notification from "./shared/components/UI/Notification";
 import { notificationActions } from "./store/notification/notification-slice";
+import AddMoviePage from "./movie/pages/AddMoviePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,12 @@ function App() {
         {!isLoggedIn && (
           <Route path="/auth">
             <AuthForm />
+          </Route>
+        )}
+
+        {isLoggedIn && (
+          <Route path="/movies/add">
+            <AddMoviePage />
           </Route>
         )}
 

@@ -4,6 +4,7 @@ const logger = require("../utilities/logger");
 
 // All Models must be loaded
 require("../models/user");
+require("../models/movie");
 const User = mongoose.model("User");
 
 module.exports = (settings) => {

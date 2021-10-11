@@ -82,10 +82,7 @@ function hidePassword(request) {
 module.exports.login = async (req, res, next) => {
   let user;
   try {
-    user = await User.findOne({ email: req.body.email }).populate(
-      "notes",
-      "text article owner"
-    );
+    user = await User.findOne({ email: req.body.email });
   } catch (err) {
     return next(
       new HttpError("Signing up failed, please try again later.", 500)

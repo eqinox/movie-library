@@ -12,5 +12,7 @@ module.exports = (error, req, res, next) => {
   }
 
   res.status(error.code || 500);
-  res.json({ message: error.message || "An unknown error occured!" });
+  res.json({
+    error: { message: error.message || "An unknown error occured!" },
+  });
 };

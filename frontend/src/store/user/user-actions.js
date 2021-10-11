@@ -25,12 +25,12 @@ export const sendUserData = (newUser, action) => {
 
     try {
       const userData = await fetchData();
-
-      if (userData.message) {
+      
+      if (userData.error) {
         dispatch(
           notificationActions.showDefaultNotification({
             status: "error",
-            message: userData.message,
+            message: userData.error.message,
           })
         );
       } else {

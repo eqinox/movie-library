@@ -25,7 +25,10 @@ const MainNavigation = () => {
 
       <nav>
         <ul>
-        <li>{!isLoggedIn && <Link to="/auth">Login</Link>}</li>
+          <li>
+            {isLoggedIn && <Link to='/movies/add'><button>Add Movie</button></Link>}
+          </li>
+          <li>{!isLoggedIn && <Link to="/auth">Login</Link>}</li>
           <li>{isLoggedIn && <Link to="/profile">Profile</Link>}</li>
           <li>
             {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}

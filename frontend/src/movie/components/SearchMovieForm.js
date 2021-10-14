@@ -2,11 +2,12 @@ import React, { useRef } from "react";
 
 import classes from "./SearchMovieForm.module.css";
 
-const SearchMovieForm = () => {
+const SearchMovieForm = (props) => {
   let searchTextRef = useRef();
 
   const submitHandler = (event) => {
     event.preventDefault();
+    props.searchTerm(searchTextRef.current.value);
   };
 
   return (
@@ -14,7 +15,7 @@ const SearchMovieForm = () => {
       <input
         ref={searchTextRef}
         type="text"
-        placeholder="Search by movie title"
+        placeholder="Search movie by title"
       />
       <button>Search</button>
     </form>

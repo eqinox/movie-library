@@ -17,7 +17,7 @@ const DetailedMoviePage = (props) => {
   useEffect(() => {
     dispatch(getMovieById(props.match.params.id));
   }, [props.match.params.id]);
-
+  
   return (
     <div className={classes.container}>
       { movieForReview && <SearchMovieCard movieForReview={movieForReview} />}

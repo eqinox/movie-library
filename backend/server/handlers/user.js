@@ -1,4 +1,5 @@
 let User = require("mongoose").model("User");
+let Movie = require("mongoose").model("Movie");
 let encryption = require("../utilities/encryption");
 const jwt = require("jsonwebtoken");
 const logger = require("../utilities/logger");
@@ -55,6 +56,7 @@ module.exports.register = async (req, res, next) => {
       email: user.email,
       id: user._id,
       token,
+      favourite: user.favourite
     };
     logger.tempLog.info("User Register: ", message);
     res.status(201).json({ user: message });
@@ -106,7 +108,56 @@ module.exports.login = async (req, res, next) => {
     email: user.email,
     id: user._id,
     token,
+    favourite: user.favourite
   };
   logger.tempLog.info("User Login: ", message);
   res.status(200).json({ user: message });
+};
+
+module.exports.addToFavourite = async (req, res, next) => {
+  const userId = req.userData.id;
+  const movieId = req.body.id;
+
+  try {
+    const user = await User.findById(userId);
+    const movie = await Movie.findById(movieId);
+    if (!user || !movie) {
+      return next("Adding to favourite failed", 500);
+    }
+    user.favourite.push(movie);
+    const savedUser = await user.save();
+
+    let result = [];
+    // if favourite are created for the first time..
+    if (savedUser.favourite[0].usersFavourite) {
+      result = savedUser.favourite.map((item) => {
+        return item._id; // map only id's
+      });
+      res.status(200).json({ favourite: result });
+    } else {
+      res.status(200).json({ favourite: savedUser.favourite });
+    }
+
+    movie.usersFavourite.push(user);
+    await movie.save();
+  } catch (error) {
+    return next("Adding to favourite failed", 500);
+  }
+};
+
+module.exports.removeFromFavourite = async (req, res, next) => {
+  const userId = req.userData.id;
+  const movieId = req.body.id;
+
+  try {
+    const user = await User.findById(userId);
+    const movie = await Movie.findById(movieId);
+    user.favourite.pull({ _id: movieId });
+    const savedUser = await user.save();
+    res.status(200).json({ favourite: savedUser.favourite });
+    movie.usersFavourite.pull({ _id: userId });
+    await movie.save();
+  } catch (error) {
+    return next("Removing from favourite failed", 500);
+  }
 };

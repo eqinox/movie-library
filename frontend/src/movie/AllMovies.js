@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllMovies } from "../store/movie/movie-actions";
 
-import MovieCard from "./MovieCard";
+import SearchMovieCard from "./SearchMovieCard";
 import './AllMovies.css'
 
-const AllMovies = () => {
+const AllMovies = (props) => {
   const dispatch = useDispatch();
-  const movies = useSelector((state) => state.movies.all);
+  const movies = props.movies;
   
   useEffect(() => {
     dispatch(getAllMovies());
@@ -16,7 +16,7 @@ const AllMovies = () => {
   return (
     <div className="all-movies">
       {movies.map((movies) => (
-        <MovieCard
+        <SearchMovieCard
           title={movies.title}
           publishingDate={new Date(movies.publishedDate)}
           body={movies.body}

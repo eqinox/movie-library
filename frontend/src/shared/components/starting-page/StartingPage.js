@@ -4,15 +4,16 @@ import "./StartingPage.css";
 
 import { useSelector } from "react-redux";
 import AllMovies from "../../../movie/AllMovies";
+import FavouritesComponent from "../../../user/favourites/FavouritesComponent";
 
 const StartingPage = () => {
-  const user = useSelector((state) => state.user);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   return (
     <section className="starting">
-      <h1>Welcome {user.email}!</h1>
+      <h1>Your Favourites</h1>
       
-      <AllMovies />
+      {isLoggedIn && <FavouritesComponent />}
     </section>
   );
 };

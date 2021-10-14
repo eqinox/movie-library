@@ -1,0 +1,79 @@
+.card {
+  width: 60%;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  /* border: 1px solid burlywood; */
+  padding: 10px;
+  border-radius: 10px;
+  color: antiquewhite;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.content {
+  margin-left: 30px;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  width: 240px;
+  height: 320px;
+  line-height: 100px;
+  text-decoration: none;
+}
+
+.title {
+  color: black;
+  width: 100%;
+  margin:0px;
+  padding: 0px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+
+.info {
+  display: flex;
+  margin-top: 10px;
+}
+
+.info p {
+  margin: 0px;
+  font-size: 0.8rem;
+  margin-right: 10px;
+  font-size: 0.7rem;
+  text-align: left;
+}
+
+.text {
+  text-align: left;
+  width: 100%;
+  display: block;
+  margin-top: 20px;
+}
+
+.favourite {
+  margin-top: 75px;
+  margin-left: 0px;
+  padding: 10px;
+  width: 250px;
+  font-size: 1.2rem;
+}
+
+.favouriteIn {
+  border: 1px solid red;
+  color: red;
+}
+
+.favouriteOut {  
+  border: 1px solid green;
+  color: greenyellow;
+}

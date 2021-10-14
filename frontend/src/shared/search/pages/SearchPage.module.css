@@ -1,0 +1,12 @@
+.search {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  flex-wrap: wrap;
+}
+
+.search h2 {
+  font-size: 1.8rem;
+  width: 100%;
+  text-align: center;
+}

@@ -24,6 +24,8 @@ module.exports = (app) => {
     ],
     handlers.user.register
   );
+  app.post("/user/add-favourite", isAuth, handlers.user.addToFavourite);
+  app.post("/user/remove-favourite", isAuth, handlers.user.removeFromFavourite);
 
   // Movies
   app.post(

@@ -25,7 +25,7 @@ export const sendUserData = (newUser, action) => {
 
     try {
       const userData = await fetchData();
-      
+
       if (userData.error) {
         dispatch(
           notificationActions.showDefaultNotification({
@@ -45,6 +45,55 @@ export const sendUserData = (newUser, action) => {
     } catch (error) {
       dispatch(
         notificationActions.showDefaultNotification({
+          status: "error",
+          message: error.toString(),
+        })
+      );
+    }
+  };
+};
+
+export const addToFavourite = (movieId, userToken, action) => {
+  return async (dispatch) => {
+    const favouriteData = async () => {
+      try {
+        let url;
+        if (action === "add") {
+          url = "http://localhost:1339/user/add-favourite";
+        } else if (action === "remove") {
+          url = "http://localhost:1339/user/remove-favourite";
+        }
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: movieId }),
+        });
+
+        return await response.json();
+      } catch (error) {
+        console.log("error from user-actions.js");
+        return error;
+      }
+    };
+
+    try {
+      const favouriteResponseUser = await favouriteData();
+      if (favouriteResponseUser.error) {
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "error",
+            message: favouriteResponseUser.error.message,
+          })
+        );
+      } else {
+        dispatch(userActions.addToFavourite(favouriteResponseUser.favourite));
+      }
+    } catch (error) {
+      dispatch(
+        notificationActions.showGlobalNotification({
           status: "error",
           message: error.toString(),
         })

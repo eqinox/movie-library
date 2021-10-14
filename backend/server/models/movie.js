@@ -14,6 +14,7 @@ let movieSchema = new mongoose.Schema({
     ref: "User",
     required: ERROR_VALIDATION_MESSAGE,
   },
+  usersFavourite: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 const Movie = mongoose.model("Movie", movieSchema);

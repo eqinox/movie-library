@@ -5,6 +5,11 @@ const initialUserState = {
   token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
   email: localStorage.getItem("email") ? localStorage.getItem("email") : null,
   id: localStorage.getItem("id") ? localStorage.getItem("id") : null,
+  favourite:
+    localStorage.getItem("favourite") &&
+    localStorage.getItem("favourite") !== "undefined"
+      ? JSON.parse(localStorage.getItem("favourite"))
+      : [],
 };
 
 const userSlice = createSlice({
@@ -20,20 +25,29 @@ const userSlice = createSlice({
       state.isLoggedIn = true;
       state.email = user.email;
       state.id = user.id;
+      state.favourite = user.favourite;
       localStorage.setItem("token", user.token);
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("email", user.email);
       localStorage.setItem("id", user.id);
+      localStorage.setItem("favourite", JSON.stringify(user.favourite));
     },
     logout(state) {
       state.id = null;
       state.token = null;
       state.isLoggedIn = false;
       state.email = null;
+      state.favourite = null;
       localStorage.removeItem("token");
       localStorage.removeItem("isLoggedIn");
       localStorage.removeItem("email");
       localStorage.removeItem("id");
+      localStorage.removeItem("favourite");
+    },
+    addToFavourite(state, action) {
+      const favouriteArticles = action.payload;
+      state.favourite = favouriteArticles;
+      localStorage.setItem("favourite", JSON.stringify(favouriteArticles));
     },
   },
 });

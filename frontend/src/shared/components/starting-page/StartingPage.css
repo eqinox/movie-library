@@ -1,11 +1,11 @@
 .starting {
-  margin: 3rem auto;
-  text-align: center;
+  
 }
 
-.starting h1 {
-  font-size: 5rem;
-  color: inherit;
+.starting > h1{
+  padding: 0px;
+  font-size: 1.8rem;
+  text-align: center;
 }
 
 .add-article-section {

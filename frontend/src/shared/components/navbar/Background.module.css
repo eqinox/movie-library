@@ -1,0 +1,18 @@
+.background {
+  /* max-width: 1900px; */
+  /* width: 100%; */
+  height: 300px;
+  background-image: url("http://localhost:1339/uploads/images/background2.jpg");
+  background-size: cover;
+  padding-left: 40px;
+  color: inherit;
+}
+
+.background p {
+  width: 30%;
+}
+
+.background h1 {
+  padding-top: 70px;
+
+}

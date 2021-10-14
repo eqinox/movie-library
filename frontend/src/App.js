@@ -10,6 +10,8 @@ import AuthForm from "./user/AuthForm";
 import Notification from "./shared/components/UI/Notification";
 import { notificationActions } from "./store/notification/notification-slice";
 import AddMoviePage from "./movie/pages/AddMoviePage";
+import Background from "./shared/components/navbar/Background";
+import SearchPage from "./shared/search/pages/SearchPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +44,7 @@ function App() {
           <Redirect to="/welcome" />
         </Route>
         <Route path="/welcome">
+          <Background />
           <StartingPage />
         </Route>
 
@@ -62,6 +65,10 @@ function App() {
             <AddMoviePage />
           </Route>
         )}
+
+        <Route path="/search">
+          <SearchPage />
+        </Route>
 
         <Route path="*">
           <Redirect to="/" />

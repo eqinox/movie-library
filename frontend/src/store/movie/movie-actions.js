@@ -28,3 +28,38 @@ export const getAllMovies = () => {
   };
 };
 
+export const getMovieById = (id) => {
+  return async (dispatch) => {
+    const fetchMovie = async () => {
+      try {
+        const response = await fetch(`http://localhost:1339/movie/${id}`);
+
+        const movies = await response.json();
+        return movies;
+      } catch (error) {
+        return error;
+      }
+    };
+
+    try {
+      const movie = await fetchMovie();
+      if (movie.error) {
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "error",
+            message: movie.error.message,
+          })
+        );
+      } else {
+        dispatch(movieActions.setMovieForReview(movie));
+      }
+    } catch (error) {
+      dispatch(
+        notificationActions.showDefaultNotification({
+          status: "error",
+          message: error.toString(),
+        })
+      );
+    }
+  };
+};

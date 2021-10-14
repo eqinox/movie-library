@@ -1,19 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import classes from "./FavouriteMovieCard.module.css";
 
 const FavouriteMovieCard = (props) => {
   // from props
-  const movieId = props.id;
-  const image = props.image;
-  const title = props.title;
-
+  const movie = props.movie;
+  const movieId = movie._id;
+  const image = movie.image
+    ? `http://localhost:1339/${movie.image}`
+    : "https://cdn.britannica.com/q:60/91/181391-050-1DA18304/cat-toes-paw-number-paws-tiger-tabby.jpg";
+  const title = movie.title;
 
   return (
     <div className={classes.card}>
-      <div>
-        <img alt="something" src={image} />
-      </div>
+      <Link to={`/movie/view/${movieId}`}>
+        <div>
+          <img alt="something" src={image} />
+        </div>
+      </Link>
       <div className={classes.content}>
         <h1 className={classes.title}>{title}</h1>
       </div>

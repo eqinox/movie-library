@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialMovieState = {
   all: [],
   image: null,
+  movieForReview: null
 };
 
 const movieSlice = createSlice({
@@ -12,6 +13,9 @@ const movieSlice = createSlice({
     getAll(state, action) {
       state.all = action.payload;
     },
+    setMovieForReview(state, action) {
+      state.movieForReview = action.payload;
+    }
   },
 });
 

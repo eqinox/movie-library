@@ -36,6 +36,7 @@ module.exports = (app) => {
   );
 
   app.get("/movies", handlers.movie.getAll);
+  app.get('/movie/:id', handlers.movie.getById)
 
   // nothing match and throw error
   app.use((req, res, next) => {

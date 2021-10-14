@@ -41,3 +41,13 @@ module.exports.add = async (req, res, next) => {
     return next(new HttpError(err.toString(), 500));
   }
 };
+
+module.exports.getById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const movie = await Movie.findById(id);
+    res.status(200).json(movie);
+  } catch (error) {
+    return next("Movie not found!", 404);
+  }
+};

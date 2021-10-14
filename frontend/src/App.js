@@ -11,7 +11,8 @@ import Notification from "./shared/components/UI/Notification";
 import { notificationActions } from "./store/notification/notification-slice";
 import AddMoviePage from "./movie/pages/AddMoviePage";
 import Background from "./shared/components/navbar/Background";
-import SearchPage from "./shared/search/pages/SearchPage";
+import SearchMoviePage from "./movie/pages/SearchMoviePage";
+import DetailedMoviePage from "./movie/pages/DetailedMoviePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -67,8 +68,10 @@ function App() {
         )}
 
         <Route path="/search">
-          <SearchPage />
+          <SearchMoviePage />
         </Route>
+
+        <Route path="/movie/view/:id" component={DetailedMoviePage} />
 
         <Route path="*">
           <Redirect to="/" />

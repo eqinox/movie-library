@@ -93,11 +93,48 @@ export const addToFavourite = (movieId, userToken, action) => {
       }
     } catch (error) {
       dispatch(
-        notificationActions.showGlobalNotification({
+        notificationActions.showDefaultNotification({
           status: "error",
           message: error.toString(),
         })
       );
     }
+  };
+};
+
+export const addNote = (noteText, userToken) => {
+  return async (dispatch, getState) => {
+    const noteData = async () => {
+      try {
+        const movieId = getState().movies.movieForReview._id;
+        const response = await fetch("http://localhost:1339/movie/add-note", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: movieId, text: noteText }),
+        });
+
+        return await response.json();
+      } catch (error) {
+        return error;
+      }
+    };
+
+    try {
+      const noteResponse = await noteData();
+      if (noteResponse.error) {
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "error",
+            message: noteResponse.error.message,
+          })
+        );
+      } else {
+        dispatch(userActions.addNote(noteResponse));
+        dispatch(notificationActions.showShortNotification());
+      }
+    } catch (error) {}
   };
 };

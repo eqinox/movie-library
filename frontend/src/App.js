@@ -20,6 +20,7 @@ function App() {
   const defaultNotification = useSelector(
     (state) => state.notification.defaultNotification
   );
+  const shortNotification = useSelector((state) => state.notification.shortNotification);
 
   useEffect(() => {
     const identifier = setTimeout(() => {
@@ -30,6 +31,16 @@ function App() {
       clearTimeout(identifier);
     };
   }, [defaultNotification]);
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      dispatch(notificationActions.hideShortNotification());
+    }, 3000);
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [shortNotification]);
 
   return (
     <Fragment>

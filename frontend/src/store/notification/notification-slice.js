@@ -6,9 +6,7 @@ const initialNotificationState = {
     status: null,
     message: null,
   },
-  shortNotification: {
-    show: false,
-  },
+  shortNotification: false,
 };
 
 const notificationSlice = createSlice({
@@ -27,10 +25,10 @@ const notificationSlice = createSlice({
       state.defaultNotification.status = null;
     },
     showShortNotification(state) {
-      state.shortNotification.show = true;
+      state.shortNotification = true;
     },
     hideShortNotification(state) {
-      state.shortNotification.show = false;
+      state.shortNotification = false;
     },
   },
 });

@@ -1,6 +1,7 @@
 const HttpError = require("../models/http-error");
 const Movie = require("mongoose").model("Movie");
 const User = require("mongoose").model("User");
+const Note = require("mongoose").model("Note");
 
 module.exports.getAll = async (req, res) => {
   const all = await Movie.find();
@@ -51,3 +52,38 @@ module.exports.getById = async (req, res, next) => {
     return next("Movie not found!", 404);
   }
 };
+
+module.exports.addNote = async (req, res, next) => {
+  const userId = req.userData.id;
+  const movieId = req.body.id;
+  const text = req.body.text;
+
+  try {
+    const note = await Note.findOne({ owner: userId, movie: movieId });
+    const user = await User.findById(userId);
+    const movie = await Movie.findById(movieId);
+    if (!user || !movie) {
+      return next("Adding note failed", 500);
+    }
+    if (note) {
+      note.text = text;
+      const savedNote = await note.save();
+      res.status(200).json(savedNote)
+    } else {
+      let createdNote = new Note({ text });
+      user.notes.push(createdNote);
+      movie.notes.push(createdNote);
+      createdNote.owner = user._id;
+      createdNote.movie = movie._id;
+      const noteResponse = await createdNote.save();
+      await user.save();
+      await movie.save();
+      res.status(200).json(noteResponse);
+    }
+
+    
+  } catch (error) {
+    return next(new HttpError("Creating note failed!", 500));
+  }
+};
+

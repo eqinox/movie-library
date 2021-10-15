@@ -16,7 +16,7 @@ const StartingPage = () => {
 
   return (
     <section className="starting">
-      <h1>Your Favourites</h1>
+      {isLoggedIn && <h1>Your Favourites</h1>}
 
       {isLoggedIn && <FavouritesComponent />}
     </section>

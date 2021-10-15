@@ -36,7 +36,10 @@ module.exports = (app) => {
   );
 
   app.get("/movies", handlers.movie.getAll);
-  app.get('/movie/:id', handlers.movie.getById)
+  app.get("/movie/:id", handlers.movie.getById);
+
+  // Notes
+  app.post("/movie/add-note", isAuth, handlers.movie.addNote);
 
   // nothing match and throw error
   app.use((req, res, next) => {

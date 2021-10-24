@@ -28,6 +28,8 @@ module.exports.add = async (req, res, next) => {
       body: req.body.body,
       publishedDate: new Date(),
       owner: user._id,
+      genre: req.body.genre,
+      duration: req.body.duration,
       image: req.file ? req.file.path : null,
     };
     let createdMovie = new Movie(newMovie);
@@ -68,7 +70,7 @@ module.exports.addNote = async (req, res, next) => {
     if (note) {
       note.text = text;
       const savedNote = await note.save();
-      res.status(200).json(savedNote)
+      res.status(200).json(savedNote);
     } else {
       let createdNote = new Note({ text });
       user.notes.push(createdNote);
@@ -80,10 +82,37 @@ module.exports.addNote = async (req, res, next) => {
       await movie.save();
       res.status(200).json(noteResponse);
     }
-
-    
   } catch (error) {
     return next(new HttpError("Creating note failed!", 500));
   }
 };
 
+module.exports.vote = async (req, res, next) => {
+  const number = req.body.number;
+  const movieId = req.body.id;
+  const userId = req.userData.id;
+
+  try {
+    const movie = await Movie.findById(movieId);
+    const user = await User.findById(userId);
+    let totalSum = 0;
+
+    if (!movie.alreadyVoted) {
+      movie.alreadyVoted = user;
+      movie.votes.push(number);
+      user.voteFor.push(movie);
+    }
+    for (const num of movie.votes) {
+      totalSum += num;
+    }
+
+    const result = Math.round(totalSum / movie.votes.length);
+
+    await movie.save();
+    await user.save();
+
+    res.status(200).json({ totalVote: result });
+  } catch (error) {
+    return next(new HttpError("Vote failed", 500));
+  }
+};

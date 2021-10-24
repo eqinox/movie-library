@@ -63,3 +63,41 @@ export const getMovieById = (id) => {
     }
   };
 };
+
+export const voteForMovie = (movieId, userToken, selectedNumberVote) => {
+  return async (dispatch, getState) => {
+    const voteData = async () => {
+      try {
+        const movieId = getState().movies.movieForReview._id;
+        const response = await fetch("http://localhost:1339/movie/vote", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: movieId, number: selectedNumberVote }),
+        });
+
+        return await response.json();
+      } catch (error) {
+        return error;
+      }
+    };
+
+    try {
+      const voteResponse = await voteData();
+      if (voteResponse.error) {
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "error",
+            message: voteResponse.error.message,
+          })
+        );
+      } else {
+        dispatch(
+          movieActions.voteForMovie(movieId, voteResponse.totalVOte)
+        );
+      }
+    } catch (error) {}
+  };
+};

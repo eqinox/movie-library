@@ -14,7 +14,7 @@ const SearchMovieForm = (props) => {
     <form className={classes.search} onSubmit={submitHandler}>
       <input
         ref={searchTextRef}
-        type="text"
+        type="search"
         placeholder="Search movie by title"
       />
       <button>Search</button>

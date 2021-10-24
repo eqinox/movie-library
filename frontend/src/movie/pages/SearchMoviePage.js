@@ -25,6 +25,7 @@ const SearchMoviePage = () => {
       <h2>Search</h2>
       <SearchMovieForm searchTerm={searchHandler} />
       {movies && <AllMovies movies={filteredMovies.length > 0? filteredMovies : movies} />}
+      {movies.length === 0 && <h1>No Movies to show</h1>}
     </div>
   );
 };

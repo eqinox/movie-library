@@ -7,7 +7,7 @@ let movieSchema = new mongoose.Schema({
   title: { type: String, required: ERROR_VALIDATION_MESSAGE },
   body: { type: String },
   genre: { type: String },
-  duration: { type: String },
+  duration: { type: Number },
   publishedDate: { type: Date },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -15,7 +15,10 @@ let movieSchema = new mongoose.Schema({
     required: ERROR_VALIDATION_MESSAGE,
   },
   usersFavourite: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Note" }]
+  notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Note" }],
+  votes: [Number],
+  totalVote: Number,
+  alreadyVoted: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const Movie = mongoose.model("Movie", movieSchema);

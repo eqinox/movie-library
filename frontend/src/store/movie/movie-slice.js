@@ -28,6 +28,19 @@ const movieSlice = createSlice({
         state.filtered = [];
       }
     },
+    voteForMovie(state, action) {
+      console.log(action.payload);
+      // const movieId = action.payload.movieId;
+      // const number = action.payload.totalVote;
+      // console.log(movieId);
+      // console.log(number);
+      // console.log("asd)");
+
+      // const index = state.all.indexOf((item) => {
+      //   return item.id === movieId;
+      // });
+      // state.all[index].totalVote = number;
+    },
   },
 });
 

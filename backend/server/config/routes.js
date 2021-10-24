@@ -35,6 +35,8 @@ module.exports = (app) => {
     handlers.movie.add
   );
 
+  app.post("/movie/vote", isAuth, handlers.movie.vote);
+
   app.get("/movies", handlers.movie.getAll);
   app.get("/movie/:id", handlers.movie.getById);
 

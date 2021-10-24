@@ -63,10 +63,10 @@ const SearchMovieCard = (props) => {
           </div>
         </Link>
         <div className={classes.content}>
-          <h1 className={classes.title}>{title}</h1>
+          <h1>{title}</h1>
           <div className={classes.info}>
-            <p>Drama, Thriller, Comedy</p>
-            <p> 90 minutes</p>
+            <p>{genre}</p>
+            <p>{duration}</p>
           </div>
           <div className={classes.text}>{body}</div>
           {isLoggedIn && (

@@ -3,14 +3,14 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 
-import MainNavigation from "./shared/components/navbar/MainNavigation";
-import StartingPage from "./shared/components/starting-page/StartingPage";
+import MainNavigation from "./shared/navbar/MainNavigation";
+import StartingPage from "./shared/starting-page/StartingPage";
 import ProfilePage from "./user/ProfilePage";
 import AuthForm from "./user/AuthForm";
-import Notification from "./shared/components/UI/Notification";
+import Notification from "./shared/UI/Notification";
 import { notificationActions } from "./store/notification/notification-slice";
 import AddMoviePage from "./movie/pages/AddMoviePage";
-import Background from "./shared/components/navbar/Background";
+import Background from "./shared/navbar/Background";
 import SearchMoviePage from "./movie/pages/SearchMoviePage";
 import DetailedMoviePage from "./movie/pages/DetailedMoviePage";
 

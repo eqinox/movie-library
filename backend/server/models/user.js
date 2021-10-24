@@ -12,6 +12,7 @@ let userSchema = new mongoose.Schema({
   movies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
   favourite: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
   notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Note" }],
+  voteFor: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
 userSchema.method({

@@ -58,6 +58,15 @@ const userSlice = createSlice({
       state.favourite = favouriteArticles;
       localStorage.setItem("favourite", JSON.stringify(favouriteArticles));
     },
+    removeFromFavourite(state, action) {
+      const alreadyFavourite = state.favourite.find((item) => {
+        return item.movie === action.payload.movie;
+      });
+      if (alreadyFavourite) {
+        const index = state.favourite.indexOf(alreadyFavourite.movie);
+        state.favourite.splice(index, 1);
+      }
+    },
     addNote(state, action) {
       const note = action.payload;
       const index = state.notes.findIndex((item) => item.movie === note.movie);

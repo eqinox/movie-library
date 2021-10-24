@@ -8,6 +8,7 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   text-align: center;
+  color: white;
 }
 
 .auth h1 {
@@ -30,12 +31,32 @@
 .control textarea {
   font: inherit;
   background-color: #4d4d4d;
-  color: #38015c;
+  color: inherit;
   border-radius: 4px;
   border: 1px solid burlywood;
   width: 100%;
   text-align: left;
   padding: 0.25rem;
+}
+
+.control select {
+  width: 100%;
+  background-color: #4d4d4d;
+  color: white;
+  border: 1px solid burlywood;
+  text-align: inherit;
+  padding: 10px;
+  border-radius: 4px;
+
+}
+
+.control select option {
+  background-color: inherit;
+  color: white;
+  border: 1px solid burlywood;
+  text-align: inherit;
+  padding: 10px;
+
 }
 
 .actions {
@@ -60,6 +81,7 @@
   border-color: #873abb;
 }
 
+
 .actions .toggle {
   margin-top: 1rem;
   background-color: transparent;
@@ -71,4 +93,15 @@
 .actions .toggle:hover {
   background-color: transparent;
   color: #ae82cc;
+}
+
+
+.genres{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.genres > div{
+  width: 30%;
 }

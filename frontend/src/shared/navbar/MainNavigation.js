@@ -36,11 +36,8 @@ const MainNavigation = () => {
           <li>
           <SearchMovieForm searchTerm={searchHandler}/>
           </li>
-          <li>
-            {isLoggedIn && <Link to='/movies/add'><button>Add Movie</button></Link>}
-          </li>
           <li>{!isLoggedIn && <Link to="/auth">Authenticate</Link>}</li>
-          <li>{isLoggedIn && <Link to="/profile">Profile</Link>}</li>
+          <li>{isLoggedIn && <Link to="/profile"><button>Profile</button></Link>}</li>
           <li>
             {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
           </li>

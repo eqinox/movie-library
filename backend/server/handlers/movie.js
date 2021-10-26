@@ -8,9 +8,30 @@ module.exports.getAll = async (req, res) => {
   res.status(200).json(all);
 };
 
-module.exports.edit = async (req, res, next) => {};
+module.exports.edit = async (req, res, next) => {
+  // const {title, body, }
+};
 
-module.exports.delete = async (req, res, next) => {};
+module.exports.delete = async (req, res, next) => {
+  const articleId = req.params.id;
+  const userId = req.userData.id;
+
+  try {
+    const owner = await User.findById(userId);
+    const movie = await Movie.findById(articleId);
+
+    if (movie.owner._id.toString() !== owner.id.toString()) {
+      return next(
+        new HttpError("Deleting movie failed movie owner is not the same as current", 500)
+      );
+    }
+
+    await Movie.findByIdAndDelete(articleId);
+    res.status(200).json({ message: "Successfully deleted" });
+  } catch (error) {
+    new HttpError("Deleting Movie failed", 500)
+  }
+};
 
 module.exports.add = async (req, res, next) => {
   const id = req.userData.id;
@@ -22,13 +43,13 @@ module.exports.add = async (req, res, next) => {
     if (!user) {
       return next(new HttpError("Could not find user", 404));
     }
-
+    const genresArray = req.body.genres.split(',');
     const newMovie = {
       title: req.body.title,
       body: req.body.body,
       publishedDate: new Date(),
       owner: user._id,
-      genre: req.body.genre,
+      genres: genresArray,
       duration: req.body.duration,
       image: req.file ? req.file.path : null,
     };

@@ -5,7 +5,7 @@ import './AllMovies.css'
 
 const AllMovies = (props) => {
   const movies = props.movies;
-
+  console.log(movies)
   return (
     <div className="all-movies">
       {movies.map((movie) => (

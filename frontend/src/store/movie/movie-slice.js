@@ -28,6 +28,23 @@ const movieSlice = createSlice({
         state.filtered = [];
       }
     },
+    deleteMovie(state, action) {
+      const movieId = action.payload;
+      const indexofAll = state.all.findIndex((item) => item._id == movieId);
+      const indexofFiltered = state.filtered.findIndex(
+        (item) => item._id == movieId
+      );
+      if (indexofAll !== -1) {
+        state.all.splice(indexofAll, 1);
+      } else {
+        console.log("movie not found");
+      }
+      if (indexofFiltered !== -1) {
+        state.filtered.splice(indexofFiltered, 1);
+      } else {
+        console.log("movie of filtered not found");
+      }
+    },
     voteForMovie(state, action) {
       console.log(action.payload);
       // const movieId = action.payload.movieId;

@@ -85,7 +85,10 @@ function hidePassword(request) {
 module.exports.login = async (req, res, next) => {
   let user;
   try {
-    user = await User.findOne({ email: req.body.email }).populate('notes', 'text movie owner');
+    user = await User.findOne({ email: req.body.email }).populate(
+      "notes",
+      "text movie owner"
+    );
   } catch (err) {
     return next(
       new HttpError("Signing up failed, please try again later.", 500)
@@ -124,8 +127,12 @@ module.exports.addToFavourite = async (req, res, next) => {
     const user = await User.findById(userId);
     const movie = await Movie.findById(movieId);
     if (!user || !movie) {
-      return next("Adding to favourite failed", 500);
+      return new HttpError(
+        "Adding to favourite failed not found user or movie.",
+        500
+      );
     }
+
     user.favourite.push(movie);
     const savedUser = await user.save();
 
@@ -141,9 +148,10 @@ module.exports.addToFavourite = async (req, res, next) => {
     }
 
     movie.usersFavourite.push(user);
+
     await movie.save();
   } catch (error) {
-    return next("Adding to favourite failed", 500);
+    return next(new HttpError(error, 500));
   }
 };
 
@@ -160,6 +168,6 @@ module.exports.removeFromFavourite = async (req, res, next) => {
     movie.usersFavourite.pull({ _id: userId });
     await movie.save();
   } catch (error) {
-    return next("Removing from favourite failed", 500);
+    return next(new HttpError("Removing from favourite failed.", 500));
   }
 };

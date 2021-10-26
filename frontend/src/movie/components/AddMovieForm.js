@@ -37,7 +37,8 @@ const AddMovieForm = () => {
     formData.append("image", image);
     formData.append("title", title.current.value);
     formData.append("body", body.current.value);
-    formData.append("genre", genresState);
+    console.log(genresState);
+    formData.append("genres", genresState);
     formData.append("duration", duration.current.value);
 
     try {

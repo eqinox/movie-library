@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const encryption = require("../utilities/encryption");
-const uniqueValiddator = require("mongoose-unique-validator");
+// const uniqueValiddator = require("mongoose-unique-validator");
 
 const ERROR_VALIDATION_MESSAGE = "${PATH} is required";
 
@@ -26,7 +26,8 @@ userSchema.method({
   },
 });
 
-userSchema.plugin(uniqueValiddator);
+
+// userSchema.plugin(uniqueValiddator);
 
 const User = mongoose.model("User", userSchema);
 

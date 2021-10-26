@@ -39,6 +39,7 @@ module.exports = (app) => {
 
   app.get("/movies", handlers.movie.getAll);
   app.get("/movie/:id", handlers.movie.getById);
+  app.delete("/movie/:id", isAuth, handlers.movie.delete);
 
   // Notes
   app.post("/movie/add-note", isAuth, handlers.movie.addNote);

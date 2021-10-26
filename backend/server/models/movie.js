@@ -6,7 +6,7 @@ let movieSchema = new mongoose.Schema({
   image: { type: String },
   title: { type: String, required: ERROR_VALIDATION_MESSAGE },
   body: { type: String },
-  genre: { type: String },
+  genres: [{ type: String }],
   duration: { type: Number },
   publishedDate: { type: Date },
   owner: {

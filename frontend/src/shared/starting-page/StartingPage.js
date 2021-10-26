@@ -19,10 +19,10 @@ const StartingPage = () => {
   
   return (
     <section className="starting">
-      {isLoggedIn && <h1>Your Favourites</h1>}
+      {isLoggedIn && userFavourite.length !== 0 && <h1>Your Favourites</h1>}
 
-      {isLoggedIn && <FavouritesComponent />}
-      {isLoggedIn && userFavourite.length === 0 && <div>No Favourites</div>}
+      <FavouritesComponent />
+      {isLoggedIn && userFavourite.length === 0 && <h1>No Favourites</h1>}
     </section>
   );
 };

@@ -101,3 +101,42 @@ export const voteForMovie = (movieId, userToken, selectedNumberVote) => {
     } catch (error) {}
   };
 };
+
+export const deleteMovie = (movieId, userToken) => {
+  return async (dispatch) => {
+    const deleteData = async () => {
+      try {
+        const response = await fetch(`http://localhost:1339/movie/${movieId}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${userToken}` },
+        });
+
+        return await response.json();
+      } catch (error) {
+        return error;
+      }
+    }
+    
+    try {
+      const deleteResponse = await deleteData();
+      if (deleteResponse.error) {
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "error",
+            message: deleteResponse.error.message,
+          })
+        );
+      } else {
+        dispatch(movieActions.deleteMovie(movieId))
+        dispatch(
+          notificationActions.showDefaultNotification({
+            message: deleteResponse.message,
+            status: "success",
+          })
+        );
+      }
+    } catch (error) {
+
+    }
+  }
+}

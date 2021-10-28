@@ -13,6 +13,7 @@ import AddMoviePage from "./movie/pages/AddMoviePage";
 import Background from "./shared/navbar/Background";
 import SearchMoviePage from "./movie/pages/SearchMoviePage";
 import DetailedMoviePage from "./movie/pages/DetailedMoviePage";
+import EditMoviePage from "./movie/pages/EditMoviePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -77,6 +78,10 @@ function App() {
             <AddMoviePage />
           </Route>
         )}
+        {isLoggedIn && (
+          <Route path="/movie/edit/:id" component={EditMoviePage} />
+        )}
+
 
         <Route path="/search">
           <SearchMoviePage />

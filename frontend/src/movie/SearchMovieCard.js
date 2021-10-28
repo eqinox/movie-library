@@ -9,6 +9,9 @@ import { addToFavourite } from "../store/user/user-actions";
 import { Link } from "react-router-dom";
 import { deleteMovie } from "../store/movie/movie-actions";
 
+const defaultImage =
+  "https://cdn.britannica.com/q:60/91/181391-050-1DA18304/cat-toes-paw-number-paws-tiger-tabby.jpg";
+
 const SearchMovieCard = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -26,7 +29,7 @@ const SearchMovieCard = (props) => {
   const body = movie.body ? movie.body.substring(0, 350) : null;
   const image = movie.image
     ? `http://localhost:1339/${movie.image}`
-    : "https://i.natgeofe.com/n/46b07b5e-1264-42e1-ae4b-8a021226e2d0/domestic-cat_thumb_square.jpg";
+    : defaultImage;
   const title = movie.title;
   const genres = movie.genres;
   const duration = movie.duration;
@@ -83,6 +86,13 @@ const SearchMovieCard = (props) => {
               <button type="button" onClick={deleteHandler}>
                 Delete
               </button>
+            )}
+            {userId === movie.owner && (
+              <Link to={`/movie/edit/${movieId}`}>
+                <button type="button" onClick={editHandler}>
+                  Edit
+                </button>
+              </Link>
             )}
           </div>
         </div>

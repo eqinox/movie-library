@@ -4,7 +4,7 @@ const initialMovieState = {
   all: [],
   filtered: [],
   image: null,
-  movieForReview: null,
+  movieForReview: {},
 };
 
 const movieSlice = createSlice({

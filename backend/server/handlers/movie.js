@@ -9,10 +9,40 @@ module.exports.getAll = async (req, res) => {
 };
 
 module.exports.edit = async (req, res, next) => {
-  // const {title, body, }
+  const { title, body, duration, genres } = req.body;
+  const movieId = req.params.id;
+  const userId = req.userData.id;
+
+  let owner;
+  let movie;
+  try {
+    owner = await User.findById(userId);
+    movie = await Movie.findById(movieId);
+  } catch (error) {
+    return next(
+      new HttpError("Something went wrong, could not update the movie", 500)
+    );
+  }
+
+  if (owner._id.toString() !== movie.owner._id.toString()) {
+    return next(new HttpError("owner id and movie owner id are not same", 500));
+  }
+
+  movie.title = title;
+  movie.body = body;
+  movie.duration = duration;
+  movie.genres = genres;
+
+  try {
+    await movie.save();
+    res.status(200).json({ message: "updated successfuly" });
+  } catch (error) {
+    return next(new HttpError("Could not save the movie", 500));
+  }
 };
 
 module.exports.delete = async (req, res, next) => {
+  // TODO: Remove the connection from user's favourite array
   const articleId = req.params.id;
   const userId = req.userData.id;
 
@@ -22,14 +52,17 @@ module.exports.delete = async (req, res, next) => {
 
     if (movie.owner._id.toString() !== owner.id.toString()) {
       return next(
-        new HttpError("Deleting movie failed movie owner is not the same as current", 500)
+        new HttpError(
+          "Deleting movie failed movie owner is not the same as current",
+          500
+        )
       );
     }
 
     await Movie.findByIdAndDelete(articleId);
     res.status(200).json({ message: "Successfully deleted" });
   } catch (error) {
-    new HttpError("Deleting Movie failed", 500)
+    new HttpError("Deleting Movie failed", 500);
   }
 };
 
@@ -43,7 +76,7 @@ module.exports.add = async (req, res, next) => {
     if (!user) {
       return next(new HttpError("Could not find user", 404));
     }
-    const genresArray = req.body.genres.split(',');
+    const genresArray = req.body.genres.split(",");
     const newMovie = {
       title: req.body.title,
       body: req.body.body,

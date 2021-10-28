@@ -94,9 +94,7 @@ export const voteForMovie = (movieId, userToken, selectedNumberVote) => {
           })
         );
       } else {
-        dispatch(
-          movieActions.voteForMovie(movieId, voteResponse.totalVOte)
-        );
+        dispatch(movieActions.voteForMovie(movieId, voteResponse.totalVOte));
       }
     } catch (error) {}
   };
@@ -115,8 +113,8 @@ export const deleteMovie = (movieId, userToken) => {
       } catch (error) {
         return error;
       }
-    }
-    
+    };
+
     try {
       const deleteResponse = await deleteData();
       if (deleteResponse.error) {
@@ -127,7 +125,7 @@ export const deleteMovie = (movieId, userToken) => {
           })
         );
       } else {
-        dispatch(movieActions.deleteMovie(movieId))
+        dispatch(movieActions.deleteMovie(movieId));
         dispatch(
           notificationActions.showDefaultNotification({
             message: deleteResponse.message,
@@ -135,8 +133,6 @@ export const deleteMovie = (movieId, userToken) => {
           })
         );
       }
-    } catch (error) {
-
-    }
-  }
-}
+    } catch (error) {}
+  };
+};

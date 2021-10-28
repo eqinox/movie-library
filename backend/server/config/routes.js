@@ -34,6 +34,7 @@ module.exports = (app) => {
     isAuth,
     handlers.movie.add
   );
+  app.patch("/movie/:id", isAuth, handlers.movie.edit);
 
   app.post("/movie/vote", isAuth, handlers.movie.vote);
 

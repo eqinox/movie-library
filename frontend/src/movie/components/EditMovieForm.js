@@ -16,7 +16,15 @@ const EditMovieForm = () => {
   let body = useRef();
   let duration = useRef();
 
-  if (movie.title && movie.body && movie.duration) {
+  // TODO: HOW TO do it better???
+  if (
+    title.current &&
+    body.current &&
+    duration.current &&
+    movie.title &&
+    movie.body &&
+    movie.duration
+  ) {
     title.current.value = movie.title;
     body.current.value = movie.body;
     duration.current.value = movie.duration;
@@ -24,18 +32,21 @@ const EditMovieForm = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    let formData = new FormData();
-    formData.append("title", title.current.value);
-    formData.append("body", body.current.value);
-    formData.append("duration", duration.current.value);
+    
+    const newMovie = {
+      title: title.current.value,
+      body: body.current.value,
+      duration: duration.current.value,
+    };
 
     try {
-      const response = await fetch(`http://localhost:1339/movie/${movie}`, {
+      const response = await fetch(`http://localhost:1339/movie/${movie._id}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${userToken}`,
+          "Content-Type": "application/json",
         },
-        body: formData,
+        body: JSON.stringify(newMovie),
       });
 
       const data = await response.json();
@@ -82,7 +93,7 @@ const EditMovieForm = () => {
           <input type="number" id="duration" required ref={duration} />
         </div>
         <div className={classes.actions}>
-          <button>Create</button>
+          <button>Edit</button>
         </div>
       </form>
     </div>

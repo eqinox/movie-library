@@ -47,7 +47,7 @@ const AddMovieForm = () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-        body: formData,
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();

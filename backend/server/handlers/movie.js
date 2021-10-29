@@ -9,7 +9,9 @@ module.exports.getAll = async (req, res) => {
 };
 
 module.exports.edit = async (req, res, next) => {
-  const { title, body, duration, genres } = req.body;
+  // console.log(req.body);
+  console.log(req.params);
+  const { title, body, duration } = req.body;
   const movieId = req.params.id;
   const userId = req.userData.id;
 
@@ -27,11 +29,13 @@ module.exports.edit = async (req, res, next) => {
   if (owner._id.toString() !== movie.owner._id.toString()) {
     return next(new HttpError("owner id and movie owner id are not same", 500));
   }
-
+  // console.log(title)
+  // console.log(body)
+  // console.log(duration)
   movie.title = title;
   movie.body = body;
   movie.duration = duration;
-  movie.genres = genres;
+  // movie.genres = genres;
 
   try {
     await movie.save();

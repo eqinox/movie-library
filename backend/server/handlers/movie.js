@@ -47,12 +47,12 @@ module.exports.edit = async (req, res, next) => {
 
 module.exports.delete = async (req, res, next) => {
   // TODO: Remove the connection from user's favourite array
-  const articleId = req.params.id;
+  const movieId = req.params.id;
   const userId = req.userData.id;
 
   try {
     const owner = await User.findById(userId);
-    const movie = await Movie.findById(articleId);
+    const movie = await Movie.findById(movieId);
 
     if (movie.owner._id.toString() !== owner.id.toString()) {
       return next(
@@ -63,7 +63,14 @@ module.exports.delete = async (req, res, next) => {
       );
     }
 
-    await Movie.findByIdAndDelete(articleId);
+    // TODO: HOW TO do it better ?
+    const users = await User.find();
+    for (const user of users) {
+      user.favourite.pull({ _id: movieId });
+      user.movies.pull({ _id: movieId });
+      await user.save();
+    }
+    await Movie.findByIdAndDelete(movieId);
     res.status(200).json({ message: "Successfully deleted" });
   } catch (error) {
     new HttpError("Deleting Movie failed", 500);

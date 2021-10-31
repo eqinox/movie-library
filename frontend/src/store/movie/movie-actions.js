@@ -1,5 +1,6 @@
 import { movieActions } from "./movie-slice";
 import { notificationActions } from "../notification/notification-slice";
+import { userActions } from "../user/user-slice";
 
 export const getAllMovies = () => {
   return async (dispatch) => {
@@ -126,6 +127,7 @@ export const deleteMovie = (movieId, userToken) => {
         );
       } else {
         dispatch(movieActions.deleteMovie(movieId));
+        dispatch(userActions.removeFromFavourite(movieId));
         dispatch(
           notificationActions.showDefaultNotification({
             message: deleteResponse.message,

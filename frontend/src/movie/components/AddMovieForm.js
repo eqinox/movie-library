@@ -15,7 +15,7 @@ const genres = [
   "Mystery",
   "Romance",
   "Thriller",
-  'Other',
+  "Other",
 ];
 
 const AddMovieForm = () => {
@@ -47,7 +47,7 @@ const AddMovieForm = () => {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-        body: JSON.stringify(formData),
+        body: formData
       });
 
       const data = await response.json();
@@ -85,7 +85,7 @@ const AddMovieForm = () => {
   const genresHandler = (event) => {
     const index = genresState.indexOf(event.target.value);
     if (index == -1) {
-      genresState.push(event.target.value);      
+      genresState.push(event.target.value);
       setGenresState(genresState);
     } else {
       genresState.splice(index, 1);

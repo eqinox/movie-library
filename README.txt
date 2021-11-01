@@ -1,8 +1,8 @@
-must have started mongodb version 4+
+must have started mongodb version 4+ on PORT 27017
 
 npm install in "frontend" and "backend" folders
 
-the server starts with "node index.js" and listen on port 1339
+the server starts with "node index.js" and listen on PORT 1339
 front end starts with "npm start"
 
 The front end is created with create-react-app and pages are navigated with React Router

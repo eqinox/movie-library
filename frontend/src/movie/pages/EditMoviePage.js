@@ -17,7 +17,7 @@ const EditMoviePage = (props) => {
 
   useEffect(() => {
     dispatch(getMovieById(props.match.params.id))
-  }, [props.match.params.id]);
+  }, [props.match.params.id, dispatch]);
 
   return (
     <Fragment>

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 
 import classes from "./SearchMovieCard.module.css";
 
@@ -13,7 +12,6 @@ const defaultImage =
   "https://cdn.britannica.com/q:60/91/181391-050-1DA18304/cat-toes-paw-number-paws-tiger-tabby.jpg";
 
 const SearchMovieCard = (props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   // from state

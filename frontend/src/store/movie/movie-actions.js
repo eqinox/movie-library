@@ -138,3 +138,53 @@ export const deleteMovie = (movieId, userToken) => {
     } catch (error) {}
   };
 };
+
+export const editMovie = (movieId, userToken, edittedMovie) => {
+  return async (dispatch) => {
+    const edittedData = async () => {
+      try {
+        const response = await fetch(`http://localhost:1339/movie/${movieId}`, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(edittedMovie),
+        });
+
+        return await response.json();
+      } catch (error) {
+        return error;
+      }
+    };
+
+    try {
+      const data = await edittedData();
+      if (data.error) {
+        dispatch(
+          notificationActions.showDefaultNotification({
+            status: "error",
+            message: data.error.message,
+          })
+        );
+      } else {
+        dispatch(
+          notificationActions.showDefaultNotification({
+            message: data.message,
+            status: "success",
+          })
+        );
+        dispatch(
+          movieActions.setMovieForReview(data.movie)
+        )
+      }
+    } catch (error) {
+      dispatch(
+        notificationActions.showDefaultNotification({
+          status: "error",
+          message: error.toString(),
+        })
+      );
+    }
+  };
+};

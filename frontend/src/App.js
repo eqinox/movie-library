@@ -31,7 +31,7 @@ function App() {
     return () => {
       clearTimeout(identifier);
     };
-  }, [defaultNotification]);
+  }, [defaultNotification, dispatch]);
 
   useEffect(() => {
     const identifier = setTimeout(() => {
@@ -41,7 +41,7 @@ function App() {
     return () => {
       clearTimeout(identifier);
     };
-  }, [shortNotification]);
+  }, [shortNotification, dispatch]);
 
   return (
     <Fragment>

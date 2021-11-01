@@ -84,7 +84,7 @@ const AddMovieForm = () => {
   // add & remove genre from array
   const genresHandler = (event) => {
     const index = genresState.indexOf(event.target.value);
-    if (index == -1) {
+    if (index === -1) {
       genresState.push(event.target.value);
       setGenresState(genresState);
     } else {

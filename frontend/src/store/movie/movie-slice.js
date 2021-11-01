@@ -30,9 +30,9 @@ const movieSlice = createSlice({
     },
     deleteMovie(state, action) {
       const movieId = action.payload;
-      const indexofAll = state.all.findIndex((item) => item._id == movieId);
+      const indexofAll = state.all.findIndex((item) => item._id === movieId);
       const indexofFiltered = state.filtered.findIndex(
-        (item) => item._id == movieId
+        (item) => item._id === movieId
       );
       if (indexofAll !== -1) {
         state.all.splice(indexofAll, 1);
@@ -46,12 +46,11 @@ const movieSlice = createSlice({
       }
     },
     voteForMovie(state, action) {
-      console.log(action.payload);
+      // TODO: 
       // const movieId = action.payload.movieId;
       // const number = action.payload.totalVote;
       // console.log(movieId);
       // console.log(number);
-      // console.log("asd)");
 
       // const index = state.all.indexOf((item) => {
       //   return item.id === movieId;

@@ -1,4 +1,4 @@
-You must have started mongodb version 4+
+must have started mongodb version 4+
 
 npm install in "frontend" and "backend" folders
 
@@ -11,8 +11,8 @@ The front end is created with create-react-app and pages are navigated with Reac
 - Adding, Editing and Deleting a Movie
 - Search section displaying the search result by title
 - Favourite section displaying the user's personal list of movie picks
-- Detail movie view page
-- Your Review section
+- Detail movie view page 
+- Your Review section on each detail movie view page
 - Always adding a private note for each movie
 - success/error notifications
 

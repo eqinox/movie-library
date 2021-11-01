@@ -1,20 +1,56 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import classes from "./AddMovieForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { notificationActions } from "../../store/notification/notification-slice";
-import { useHistory } from "react-router-dom";
+import { editMovie } from "../../store/movie/movie-actions";
+
+const genres = [
+  "Horror",
+  "Action",
+  "Comedy",
+  "Drama",
+  "Fantasy",
+  "Mystery",
+  "Romance",
+  "Thriller",
+  "Other",
+];
 
 const EditMovieForm = () => {
   // TODO: set selectedGenres and add changing genre
   const dispatch = useDispatch();
-  const history = useHistory();
   const userToken = useSelector((state) => state.user.token);
   const movie = useSelector((state) => state.movies.movieForReview);
+  let movieGenres;
+  const [genresState, setGenresState] = useState([]);
 
   let title = useRef();
   let body = useRef();
   let duration = useRef();
+  let selectedGenres;
+
+  // add & remove genre from array
+  const genresHandler = (event) => {
+    const index = genresState.indexOf(event.target.value);
+    const indexOfCopyGenres = movieGenres.indexOf(event.target.value);
+
+    if (index === -1) {
+      genresState.push(event.target.value);
+      setGenresState(genresState);
+    } else {
+      genresState.splice(index, 1);
+      setGenresState(genresState);
+    }
+
+    if (indexOfCopyGenres === -1) {
+      movieGenres.push(event.target.value);
+      // setGenresState(movieGenres); // This will confuse the application
+    } else {
+      movieGenres.splice(indexOfCopyGenres, 1);
+      // setGenresState(movieGenres); // This will confuse the application
+    }
+    console.log(movieGenres);
+  };
 
   // TODO: HOW TO do it better???
   if (
@@ -23,57 +59,43 @@ const EditMovieForm = () => {
     duration.current &&
     movie.title &&
     movie.body &&
-    movie.duration
+    movie.duration &&
+    movie.genres
   ) {
     title.current.value = movie.title;
     body.current.value = movie.body;
     duration.current.value = movie.duration;
+
+    movieGenres = movie.genres.slice();
+    selectedGenres = genres.map((genre) => {
+      const initialChecked = movieGenres.includes(genre);
+      return (
+        <div key={genre}>
+          <label htmlFor={genre}>{genre}</label>
+          <input
+            type="checkbox"
+            id={genre}
+            name="genre"
+            value={genre}
+            checked={initialChecked}
+            onChange={genresHandler}
+          />
+        </div>
+      );
+    });
   }
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    
-    const newMovie = {
+
+    const edittedMovie = {
       title: title.current.value,
       body: body.current.value,
       duration: duration.current.value,
+      genres: movieGenres,
     };
 
-    try {
-      const response = await fetch(`http://localhost:1339/movie/${movie._id}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newMovie),
-      });
-
-      const data = await response.json();
-      if (data.error) {
-        dispatch(
-          notificationActions.showDefaultNotification({
-            status: "error",
-            message: data.error.message,
-          })
-        );
-      } else {
-        dispatch(
-          notificationActions.showDefaultNotification({
-            message: data.message,
-            status: "success",
-          })
-        );
-        history.replace("/welcome");
-      }
-    } catch (err) {
-      dispatch(
-        notificationActions.showDefaultNotification({
-          status: "error",
-          message: err.toString(),
-        })
-      );
-    }
+    dispatch(editMovie(movie._id, userToken, edittedMovie));
   };
 
   return (
@@ -88,6 +110,11 @@ const EditMovieForm = () => {
           <label htmlFor="body">Body</label>
           <textarea id="body" required ref={body} />
         </div>
+
+        <div className={classes.control + " " + classes.genres}>
+          {selectedGenres}
+        </div>
+
         <div className={classes.control}>
           <label htmlFor="duration">Duration</label>
           <input type="number" id="duration" required ref={duration} />

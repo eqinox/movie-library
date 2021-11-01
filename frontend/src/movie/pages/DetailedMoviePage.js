@@ -25,7 +25,7 @@ const DetailedMoviePage = (props) => {
   // Load the movie when page loaded
   useEffect(() => {
     dispatch(getMovieById(props.match.params.id));
-  }, [props.match.params.id]);
+  }, [props.match.params.id, dispatch]);
 
   // send note text on every note change
   useEffect(() => {
@@ -37,28 +37,23 @@ const DetailedMoviePage = (props) => {
     return () => {
       clearTimeout(identifier);
     };
-  }, [noteText]);
+  }, [noteText, dispatch, userToken]); // Should i include userToken in dependancy array
 
   // Get note data
   useEffect(() => {
-    if (
-      movieForReview &&
-      userNotes.some((item) => item.movie === movieId)
-    ) {
-      const index = userNotes.findIndex(
-        (item) => item.movie === movieId
-      );
+    if (movieForReview && userNotes.some((item) => item.movie === movieId)) {
+      const index = userNotes.findIndex((item) => item.movie === movieId);
       setNoteText(userNotes[index].text);
     }
-  }, [userNotes]);
+  }, [userNotes, movieForReview, movieId]);
 
   const changeNoteHandler = (event) => {
     setNoteText(event.target.value);
   };
 
   const ratingHandler = (event) => {
-    dispatch(voteForMovie(movieId, userToken, event))
-  }
+    dispatch(voteForMovie(movieId, userToken, event));
+  };
 
   return (
     <div className={classes.container}>

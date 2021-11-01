@@ -15,7 +15,7 @@ const StartingPage = () => {
 
   useEffect(() => {
     dispatch(getAllMovies());
-  }, []);
+  }, [dispatch]);
   
   return (
     <section className="starting">

@@ -17,30 +17,30 @@ const genres = [
 ];
 
 const EditMovieForm = () => {
-  // TODO: set selectedGenres and add changing genre
+  // TODO: update genre view on click
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.user.token);
   const movie = useSelector((state) => state.movies.movieForReview);
-  let movieGenres;
-  const [genresState, setGenresState] = useState([]);
+  let movieGenres; // used for the post request
+  // const [genresState, setGenresState] = useState([]);
 
   let title = useRef();
   let body = useRef();
   let duration = useRef();
-  let selectedGenres;
+  let selectedGenres; // to render all selected genres
 
   // add & remove genre from array
   const genresHandler = (event) => {
-    const index = genresState.indexOf(event.target.value);
+    // const index = genresState.indexOf(event.target.value);
     const indexOfCopyGenres = movieGenres.indexOf(event.target.value);
 
-    if (index === -1) {
-      genresState.push(event.target.value);
-      setGenresState(genresState);
-    } else {
-      genresState.splice(index, 1);
-      setGenresState(genresState);
-    }
+    // if (index === -1) {
+    //   genresState.push(event.target.value);
+    //   setGenresState(genresState);
+    // } else {
+    //   genresState.splice(index, 1);
+    //   setGenresState(genresState);
+    // }
 
     if (indexOfCopyGenres === -1) {
       movieGenres.push(event.target.value);

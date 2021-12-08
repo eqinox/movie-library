@@ -17,6 +17,21 @@ const movieSlice = createSlice({
     setMovieForReview(state, action) {
       state.movieForReview = action.payload;
     },
+    changeMovie(state, action) {
+      const edittedMovie = action.payload;
+      const indexofAll = state.all.findIndex(
+        (item) => item._id === edittedMovie._id
+      );
+      const indexofFiltered = state.filtered.findIndex(
+        (item) => item._id === edittedMovie._id
+      );
+      if (indexofAll !== -1 && indexofFiltered !== -1) {
+        state.all[indexofAll] = edittedMovie;
+        state.filtered[indexofFiltered] = edittedMovie;
+      } else {
+        console.log("no movie found");
+      }
+    },
     getAllByTitle(state, action) {
       const re = new RegExp(action.payload, "gi");
       const filtered = state.all.filter((movie) => {
@@ -46,12 +61,11 @@ const movieSlice = createSlice({
       }
     },
     voteForMovie(state, action) {
-      // TODO: 
+      // TODO:
       // const movieId = action.payload.movieId;
       // const number = action.payload.totalVote;
       // console.log(movieId);
       // console.log(number);
-
       // const index = state.all.indexOf((item) => {
       //   return item.id === movieId;
       // });

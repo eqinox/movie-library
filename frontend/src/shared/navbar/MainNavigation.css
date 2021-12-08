@@ -35,7 +35,7 @@
 
 .header button {
   font: inherit;
-  background-color: transparent;
+  background-color: inherit;
   border: 1px solid white;
   color: white;
   font-weight: bold;
@@ -51,4 +51,8 @@
 .header button:hover {
   background-color: #c291e2;
   color: #38015c;
+}
+
+#authenticateTest {
+  /* background-color: red; */
 }

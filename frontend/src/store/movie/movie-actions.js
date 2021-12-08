@@ -174,9 +174,8 @@ export const editMovie = (movieId, userToken, edittedMovie) => {
             status: "success",
           })
         );
-        dispatch(
-          movieActions.setMovieForReview(data.movie)
-        )
+        dispatch(movieActions.setMovieForReview(data.movie));
+        dispatch(movieActions.changeMovie(data.movie));
       }
     } catch (error) {
       dispatch(
